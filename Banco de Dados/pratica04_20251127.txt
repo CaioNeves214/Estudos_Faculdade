@@ -1,0 +1,183 @@
+-- ==================================================
+-- SISTEMAS DE INFORMAÇÃO P4                      -
+-- CONSULTA SQL AVANÇADO - PRÁTICA 4              -
+-- PROF. LUIZ GUSTAVO DIAS luizdias@univas.edu.br -
+-- ==================================================
+
+-- ATIVIDADE PRÁTICA PARA APLICAR O CONHECIMENTO SOBRE CONDICIONAIS
+-- A ATIVIDADE É PARTE INTEGRANTE DO TRABALHO 1
+-- PONTUAÇÃO DISTRIBUÍDA: 10 PTS
+-- DEVERÁ SER REALIZADA EM GRUPOS COM 3 OU 4 INTEGRANTES 
+-- PARA CADA QUESTÃO ABAIXO, ESTRUTURAR O SCRIPT SQL PARA ENCONTRAR A INFORMAÇÃO DESEJADA
+-- AO TÉRMINO DA ATIVIDADE, ENCAMINHE O SCRIPT PARA O PROFESSOR POR E-MAIL
+-- PRAZO PARA CONCLUSÃO 27/11 ÀS 22H
+-- SERÁ CONSIDERADO 50% DA NOTA PARA A ATIVIDADE ENTREGUE APÓS ESSA DATA
+-- SERÁ CONSIDERADA NOTA IGUAL A ZERO AS QUESTÕES RESOLVIDAS COM APOIO DE IA OU OUTROS MECANISMOS QUE REFLITAM A NÃO REPRODUÇÃO POR PARTE DO (A) ALUNO (A)
+
+-- IDENTIFICAÇÃO:
+-- - ALUNO (A) 1: Caio Cunha Neves
+-- - ALUNO (A) 2: João Mateus Benedito
+-- - ALUNO (A) 3: Gabriel Leonel
+-- - ALUNO (A) 4: Lucas Winicius
+
+-- PREPARAÇÃO DO AMBIENTE
+-- CRIE O SCHEMA ATV4
+-- CRIE A TABELA ABAIXO E INSIRA OS REGISTROS À SEGUIR
+
+-- create table produto(
+--   id int,
+--   nome varchar(50)
+-- );
+-- 
+-- insert into produto 
+-- values (1, 'produto 1'),
+--        (2, 'produto 2'),
+--        (3, 'produto 3'),
+--        (4, 'produto 4'),
+--        (5, 'produto 5'),
+--        (6, 'produto 6'),
+--        (7, 'produto 7'),
+--        (8, 'produto 8'),
+--        (9, 'produto 9'),
+--        (10, 'produto 10'),
+--        (11, 'produto 11'),
+--        (12, 'produto 12'),
+--        (13, 'produto 13'),
+--        (14, 'produto 14'),
+--        (15, 'produto 15'),
+--        (16, 'produto 16'),
+--        (17, 'produto 17'),
+--        (18, 'produto 18'),
+--        (19, 'produto 19'),
+--        (20, 'produto 20');
+-- 
+-- create table fornecedor(
+--   id int, 
+--   nome varchar(50), 
+--   id_municipio int 
+-- );
+-- 
+-- insert into fornecedor 
+-- values (1, 'Fornecedor 1', 1),
+--        (2, 'Fornecedor 2', 2),
+--        (3, 'Fornecedor 3', 3),
+--        (4, 'Fornecedor 4', 4),
+--        (5, 'Fornecedor 5', 4);
+-- 
+-- create table municipio(
+--   id int,
+--   nome varchar(50),
+--   uf char(2)
+-- );
+-- 
+-- insert into municipio 
+-- values (1, 'São Paulo', 'SP'),
+--        (2, 'Porto Alegre', 'RS'),
+--        (3, 'Belo Horizonte', 'MG'),
+--        (4, 'Rio de Janeiro', 'RJ');
+-- 
+-- create table compra(
+--   nf int,
+--   id_produto int,
+--   id_fornecedor int,
+--   qtde int,
+--   vlr_compra numeric(12,2)
+-- );
+-- 
+-- insert into compra 
+-- values (1001, 12, 5, 1000, 1950),
+--        (1002, 14, 6, 1200, 1234),
+--        (1003, 1, 2, 1300, 1234),
+--        (1004, 3, 1, 1040, 345),
+--        (1005, 5, 6, 1200, 5345),
+--        (1006, 8, 2, 1340, 5234),
+--        (1007, 2, 3, 1450, 4123),
+--        (1008, 20, 3, 3400, 12356),
+--        (1009, 12, 5, 13400, 19234),
+--        (10010, 1, 2, 10340, 11230),
+--        (10011, 4, 5, 1340, 12320),
+--        (10012, 17, 2, 3400, 54332),
+--        (10013, 19, 4, 5300, 4534),
+--        (10014, 18, 1, 56700, 43534),
+--        (10015, 6, 2, 1056, 43543),
+--        (10016, 8, 3, 156, 345),
+--        (10017, 9, 4, 1450, 43555),
+--        (10018, 14, 3, 4500, 4345),
+--        (10019, 14, 3, 1500, 2345),
+--        (10020, 1, 2, 1060, 6534);
+--        
+       
+-- QUESTÃO 1
+-- Compras em Diferentes Faixas: Elabore uma consulta que retorne a CONTAGEM de compras em faixas de valor (até R$ 1.000, R$ 1.001 a R$ 5.000, acima de R$ 5.000), usando CASE para agregar em cada faixa.
+SELECT CASE 
+        WHEN vlr_compra <= 1000                     THEN 'Até R$ 1.000'
+        WHEN vlr_compra BETWEEN 1001 AND 5000       THEN 'R$ 1.001 a R$ 5.000'
+        ELSE                                         'Acima de R$ 5.000'
+    END AS faixa_valor,
+    COUNT(*) AS quantidade
+FROM compra
+GROUP BY  CASE 
+        WHEN vlr_compra <= 1000                     THEN 'Até R$ 1.000'
+        WHEN vlr_compra BETWEEN 1001 AND 5000       THEN 'R$ 1.001 a R$ 5.000'
+        ELSE                                         'Acima de R$ 5.000'
+    END
+ORDER BY 1;
+
+-- QUESTÃO 2
+-- Total de Compras: Crie uma consulta que retorne o total gasto em compras por produto, utilizando CASE para categorizar se o gasto foi "baixo" (até R$ 1.000), "médio" (de R$ 1.001 a R$ 5.000) ou "alto" (acima de R$ 5.000).
+select p.nome AS produto,
+    COALESCE(SUM(c.vlr_compra), 0) AS total_gasto,
+    CASE 
+        WHEN COALESCE(SUM(c.vlr_compra), 0) <= 1000      THEN 'baixo'
+        WHEN COALESCE(SUM(c.vlr_compra), 0) <= 5000     THEN 'médio'
+        ELSE                                             'alto'
+    END AS categoria
+FROM produto p
+LEFT JOIN compra c ON c.id_produto = p.id
+GROUP BY p.id, p.nome
+ORDER BY total_gasto DESC;
+
+-- QUESTÃO 3
+-- Estado do Fornecedor: Crie uma consulta que traga o nome do fornecedor e seu estado, usando IF para indicar:
+-- -- "Venda A" se o estado for "SP" ou "RJ"; e 
+-- -- "Venda B" caso contrário.
+SELECT  f.nome AS fornecedor,
+    m.uf,
+    CASE WHEN m.uf IN ('SP', 'RJ') THEN 'Venda A' ELSE 'Venda B' END AS tipo_venda
+FROM fornecedor f
+JOIN municipio m ON f.id_municipio = m.id;
+
+-- QUESTÃO 4
+-- Valor Médio dos Produtos: Elabore uma consulta que calcule o valor médio das compras por produto e utilize CASE para categorizar como "Acima da Média" ou "Abaixo da Média" em relação ao valor médio geral.
+WITH medias AS (
+    SELECT id_produto, AVG(vlr_compra) AS media_produto
+    FROM compra
+    GROUP BY id_produto
+),
+media_geral AS (
+    SELECT AVG(vlr_compra) AS valor_medio_geral FROM compra
+)
+SELECT p.nome AS produto,
+    COALESCE(ROUND(m.media_produto, 2), 0) AS valor_medio,
+    CASE 
+        WHEN m.media_produto > g.valor_medio_geral THEN 'Acima da Média'
+        WHEN m.media_produto < g.valor_medio_geral THEN 'Abaixo da Média'
+        ELSE                                            'Na Média'
+    END AS comparacao
+FROM produto p
+LEFT JOIN medias m ON m.id_produto = p.id
+CROSS JOIN media_geral g
+ORDER BY valor_medio DESC;
+       
+-- QUESTÃO 5
+-- Crie uma consulta que retorne o nome do fornecedor e do seu municipio. Utilize o decode para atribuir o nome do município conforme o cõdigo de cadastro.
+select f.nome AS fornecedor,
+    CASE f.id_municipio
+        WHEN 1 THEN 'São Paulo'
+        WHEN 2 THEN 'Porto Alegre'
+        WHEN 3 THEN 'Belo Horizonte'
+        WHEN 4 THEN 'Rio de Janeiro'
+        ELSE 'Desconhecido'
+    END AS municipio
+FROM fornecedor f;
+

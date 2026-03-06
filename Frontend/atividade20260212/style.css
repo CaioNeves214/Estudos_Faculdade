@@ -1,0 +1,28 @@
+h1{
+    color: #000;
+    font-weight: 999;
+    justify-content: center;
+    display: flex;
+}
+
+#subtitulo{
+    font-weight: 500;
+}
+
+p{
+    font-size: large;
+}
+
+.principal{
+    font-size: 16px;
+}
+
+.rodape{
+    color: darkgrey;
+}
+
+.imagem{
+    padding: 1%;
+    margin: 1%;
+    size: 10%;
+}

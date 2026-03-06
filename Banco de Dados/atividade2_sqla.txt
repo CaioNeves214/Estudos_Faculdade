@@ -1,0 +1,193 @@
+-- ==================================================
+-- SISTEMAS DE INFORMAÇÃO P4                      -
+-- CONSULTA SQL AVANÇADO - PRÁTICA 2              -
+-- PROF. LUIZ GUSTAVO DIAS luizdias@univas.edu.br -
+-- ==================================================
+
+-- ATIVIDADE PRÁTICA PARA APLICAR O CONHECIMENTO SOBRE AGREGAÇÃO E AGRUPAMENTOS
+-- A ATIVIDADE É PARTE INTEGRANTE DO TRABALHO 1
+-- PONTUAÇÃO DISTRIBUÍDA: 8 PTS
+-- DEVERÁ SER REALIZADA EM GRUPOS COM 3 OU 4 INTEGRANTES 
+-- PARA CADA QUESTÃO ABAIXO, ESTRUTURAR O SCRIPT SQL PARA ENCONTRAR A INFORMAÇÃO DESEJADA
+-- AO TÉRMINO DA ATIVIDADE, ENCAMINHE O SCRIPT PARA O PROFESSOR POR E-MAIL
+-- PRAZO PARA CONCLUSÃO 27/10 ÀS 20H25
+-- SERÁ CONSIDERADO 50% DA NOTA PARA A ATIVIDADE ENTREGUE APÓS ESSA DATA
+-- SERÁ CONSIDERADA NOTA IGUAL A ZERO AS QUESTÕES RESOLVIDAS COM APOIO DE IA OU OUTROS MECANISMOS QUE REFLITAM A NÃO REPRODUÇÃO POR PARTE DO (A) ALUNO (A)
+
+-- IDENTIFICAÇÃO:
+-- - ALUNO (A) 1: Caio Neves
+-- - ALUNO (A) 2: João Mateus
+-- - ALUNO (A) 3: Lucas Winicius
+-- - ALUNO (A) 4: Gabriel Leonel
+
+-- PREPARAÇÃO DO AMBIENTE
+-- CRIE O SCHEMA ATV2
+-- CRIE A TABELA ABAIXO E INSIRA OS REGISTROS À SEGUIR
+
+create table produto(
+  id int,
+  nome varchar(50)
+);
+
+insert into produto 
+values (1, 'produto 1'),
+       (2, 'produto 2'),
+       (3, 'produto 3'),
+       (4, 'produto 4'),
+       (5, 'produto 5'),
+       (6, 'produto 6'),
+       (7, 'produto 7'),
+       (8, 'produto 8'),
+       (9, 'produto 9'),
+       (10, 'produto 10'),
+       (11, 'produto 11'),
+       (12, 'produto 12'),
+       (13, 'produto 13'),
+       (14, 'produto 14'),
+       (15, 'produto 15'),
+       (16, 'produto 16'),
+       (17, 'produto 17'),
+       (18, 'produto 18'),
+       (19, 'produto 19'),
+       (20, 'produto 20');
+
+create table fornecedor(
+  id int, 
+  nome varchar(50), 
+  id_municipio int 
+);
+
+insert into fornecedor 
+VALUES (1, 'Fornecedor 1', 1),
+       (2, 'Fornecedor 2', 2),
+       (3, 'Fornecedor 3', 3),
+       (4, 'Fornecedor 4', 4),
+       (5, 'Fornecedor 5', 4),
+       (6, 'Fornecedor 6', NULL);
+
+create table municipio(
+  id INT,
+  nome varchar(50),
+  uf char(2)
+);
+
+insert into municipio 
+values (1, 'São Paulo', 'SP'),
+       (2, 'Porto Alegre', 'RS'),
+       (3, 'Belo Horizonte', 'MG'),
+       (4, 'Rio de Janeiro', 'RJ');
+
+create table compra(
+  nf int,
+  id_produto int,
+  id_fornecedor int,
+  qtde int,
+  vlr_compra numeric(12,2)
+);
+
+insert into compra 
+values (1001, 12, 5, 1000, 1950),
+       (1002, 14, 6, 1200, 1234),
+       (1003, 1, 2, 1300, 1234),
+       (1004, 3, 1, 1040, 345),
+       (1005, 5, 6, 1200, 5345),
+       (1006, 8, 2, 1340, 5234),
+       (1007, 2, 3, 1450, 4123),
+       (1008, 20, 3, 3400, 12356),
+       (1009, 12, 5, 13400, 19234),
+       (10010, 1, 2, 10340, 11230),
+       (10011, 4, 5, 1340, 12320),
+       (10012, 17, 2, 3400, 54332),
+       (10013, 19, 4, 5300, 4534),
+       (10014, 18, 1, 56700, 43534),
+       (10015, 6, 2, 1056, 43543),
+       (10016, 8, 3, 156, 345),
+       (10017, 9, 4, 1450, 43555),
+       (10018, 14, 3, 4500, 4345),
+       (10019, 14, 3, 1500, 2345),
+       (10020, 1, 2, 1060, 6534);
+
+-- QUESTÃO 1
+-- Relacione o nome de "todos os fornecedores" e o dos municípios onde estão situados.
+-- Caso não haja município associado a algum fornecedor, utilize o coalesce para tratar dados nulos.
+SELECT 
+f.id, 
+F.nome, 
+COALESCE(m.nome, 'sem municipio') AS 'municipio' 
+FROM fornecedor f
+LEFT JOIN municipio m
+ON f.id_municipio = m.id;
+
+-- QUESTÃO 2
+-- Relacione o nome dos fornecedores situados apenas no estado de SP.
+SELECT 
+f.id, 
+f.nome, 
+m.nome, 
+m.uf 
+FROM fornecedor f
+LEFT JOIN municipio m
+ON f.id_municipio = m.id
+WHERE m.uf = 'SP';
+
+-- QUESTÃO 3
+-- Relacione o nome de "todos os produtos" e o dos fornecedores que os comercializam.
+-- Caso não haja fornecedor associado a algum produto, utilize o coalesce para tratar dados nulos.
+SELECT p.id, p.nome, COALESCE(f.nome, 'Sem Fornecedor') AS 'fornecedor' FROM produto p
+LEFT JOIN compra c ON p.id = c.id_produto
+LEFT JOIN fornecedor f ON c.id_fornecedor = f.id;
+
+-- QUESTÃO 4
+-- Relacione o número de todas as NFs das compras realizadas e o nome dos respectivos fornecedores.
+-- Se necessário, utilize o coalesce para tratar dados nulos.
+SELECT c.nf, f.nome FROM compra c
+LEFT JOIN fornecedor f
+ON c.id_fornecedor = f.id;
+
+-- QUESTÃO 5
+-- Volte na questão anterior e acrescente o nome de cada produto comprado.
+-- Se necessário, utilize o coalesce para tratar dados nulos.
+SELECT COALESCE(c.nf, 'Sem Compra Recente'), p.nome, COALESCE(f.nome, 'Sem Fornecedor') AS 'fornecedor' FROM produto p
+LEFT JOIN compra c ON p.id = c.id_produto
+LEFT JOIN fornecedor f ON c.id_fornecedor = f.id;
+
+-- QUESTÃO 6
+-- Relacione a NF, o nome dos fornecedores e o nome dos produtos para as compras feitas apenas com fornecedores de fora de SP.
+SELECT c.nf, p.nome, f.nome FROM compra c
+LEFT JOIN fornecedor f ON c.id_fornecedor = f.id
+LEFT JOIN produto p ON f.id = p.id
+WHERE f.id_municipio NOT IN(6)
+
+-- QUESTÃO 7
+-- Relacione o nome dos produtos e dos fornecedores que os comercializam. Apenas produtos que possuam fornecedores associados.
+SELECT p.id, p.nome, f.id, f.nome FROM produto p
+LEFT JOIN compra c ON p.id = c.id_produto
+LEFT JOIN fornecedor f ON c.id_fornecedor = f.id
+WHERE f.id IS NOT NULL;
+
+-- QUESTÃO 8
+-- Apresente o valor total das compras realizadas por fornecedor.
+SELECT f.id, f.nome, SUM(c.vlr_compra) AS 'total valor compras' FROM compra c
+LEFT JOIN fornecedor f ON c.id_fornecedor = f.id
+GROUP BY f.id, f.nome;
+
+-- QUESTÃO 9
+-- Apresente o valor total das compras realizadas por produto.
+SELECT p.id, p.nome, SUM(c.vlr_compra) AS 'total valor de compras' FROM compra c
+LEFT JOIN produto p ON c.id_produto = p.id
+GROUP BY p.id, p.nome;
+
+-- QUESTÃO 10
+-- Apresente o total da quantidade comprada por produto somente no estado de SP.
+SELECT p.id, p.nome, SUM(c.qtde) AS 'quantidade total' FROM produto p
+LEFT JOIN compra c ON p.id = c.id_produto
+LEFT JOIN fornecedor f ON c.id_fornecedor = f.id
+LEFT JOIN municipio m ON f.id_municipio = m.id
+WHERE m.uf = 'SP'
+GROUP BY p.id, p.nome;
+
+
+
+
+
+
