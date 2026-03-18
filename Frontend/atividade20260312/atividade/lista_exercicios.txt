@@ -1,0 +1,49 @@
+Lista de Exercícios Prática com DOM (JavaScript)
+Utilize a página HTML fornecida pelo professor como base para resolver os exercícios abaixo. Todas as soluções devem ser implementadas no arquivo JavaScript (script.js). Os exercícios envolvem manipulação do DOM, eventos, atributos e navegação pela árvore de elementos.
+1. Ao clicar no botão 'Mostrar mensagem', exiba um alert com a mensagem: 'Bem-vindo ao painel do treinador!'.
+
+2. Ao clicar no botão 'Alterar título', altere o texto do elemento com id 'titulo' para 'Equipe Pokémon carregada!'.
+
+3. Ao clicar no botão 'Trocar cor de fundo', altere a cor de fundo da página. Se clicar novamente, a cor deve voltar ao normal.
+
+4. Quando a página terminar de carregar, altere o título da aba do navegador (document.title) para 'Painel Pokémon - DOM'.
+
+5. Ao clicar no botão 'Destacar primeiro', adicione a classe 'destaque' ao primeiro item da lista de Pokémon.
+
+6. Ao clicar no botão 'Remover último', remova o último item (<li>) da lista de Pokémon.
+
+7. Quando um Pokémon da lista for clicado, altere o texto do elemento '#infoPokemon' para mostrar o nome do Pokémon clicado.
+
+8. Quando um Pokémon da lista for clicado, adicione a classe 'selecionado' ao item clicado e remova essa classe dos demais.
+
+9. Quando um Pokémon da lista for clicado, utilize getAttribute() para ler o atributo 'data-tipo' e mostre o tipo no texto de detalhes.
+
+10. Ao clicar no botão 'Adicionar Pokémon', adicione um novo item na lista utilizando os valores digitados nos campos de entrada.
+
+11. Implemente a adição do novo Pokémon utilizando o método insertAdjacentHTML().
+
+12. Após adicionar um novo Pokémon, limpe os campos do formulário.
+
+13. Garanta que os novos itens adicionados à lista também possam ser clicados para atualizar a área de detalhes.
+
+14. Ao passar o mouse sobre a área de eventos, altere o texto para 'Mouse dentro da área!'. Ao sair da área, volte para 'Passe o mouse aqui'.
+
+15. Quando qualquer tecla do teclado for pressionada, mostre no parágrafo correspondente qual tecla foi pressionada.
+
+16. Ao clicar no botão 'Alterar título', além de mudar o texto, altere também a cor, o tamanho da fonte e o alinhamento do título.
+
+17. Utilize setAttribute() para alterar o link da Pokédex para outro endereço e modificar o texto do link.
+
+18. Utilize getAttribute() para exibir no console o src da imagem, o alt da imagem e o href do link.
+
+19. Crie dinamicamente um botão chamado 'Ocultar descrição'. Ao clicar nele, o parágrafo de descrição deve desaparecer. Se clicar novamente, ele deve reaparecer.
+
+20. Mostre no console quantos filhos existem na lista de Pokémon, qual é o primeiro elemento e qual é o último.
+
+21. Crie um botão 'Remover selecionado'. Ao clicar nele, remova da lista o Pokémon que estiver com a classe 'selecionado'.
+
+22. Se o usuário tentar adicionar um Pokémon sem preencher o nome, exiba um alerta informando que o nome é obrigatório.
+
+23. Ao clicar em um Pokémon da lista, altere também a imagem exibida na área de detalhes.
+
+24. Crie um contador que mostre quantos Pokémon existem atualmente na lista e atualize esse valor sempre que um item for adicionado ou removido.

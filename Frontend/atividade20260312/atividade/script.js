@@ -23,3 +23,21 @@ document.querySelector("#btnTema").addEventListener("click", function() {
 window.onload = function() {
     document.title = "Painel Pokémon - DOM";
 };
+
+// 5
+document.querySelector("#btnDestacarPrimeiro").addEventListener("click", function() {
+    primeiro_pokemon = document.querySelector("li");
+    primeiro_pokemon.classList.add('destaque');
+});
+
+// 6
+document.querySelector("#btnRemoverUltimo").addEventListener("click", function() {
+    ultimo_pokemon = document.querySelector("ul").lastElementChild;
+    ultimo_pokemon.remove();
+});
+
+// 7 e 8
+lista_pokemon = document.querySelector("#listaPokemons").addEventListener("click", function(e) {
+  document.querySelector("#infoPokemon").textContent = "Pokémon selecionado: " + e.target.textContent;
+  lista_pokemon.classList.remove('destaque');
+});
