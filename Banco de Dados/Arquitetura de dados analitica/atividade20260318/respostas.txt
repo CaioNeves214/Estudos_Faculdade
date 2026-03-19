@@ -1,0 +1,12 @@
+5. Considerando que Resultado = Receita – Despesa, crie uma medida calculada correspondente.
+Resposta: Member [Measures].[Resultado] as ([Measures].[Receitas] - [Measures].[Despesas])
+
+8. Descreva tecnicamente o comportamento de cada SET Member presente na expressão. 
+Resposta: 
+
+SET 1 - Define a data de realização como 2026 para a ROW.
+SET 2 - Define o tipo de centro de custos para todos os membros na ROW.
+SET 1 - Define o grupo de plano de contas para todos os membros na ROW.
+
+10. Considerando o termo técnico apropriado, o que representa o valor 2026 na expressão?
+Resposta: 2026 é uma medida. Representando a data de realização do movimento financeiro.
