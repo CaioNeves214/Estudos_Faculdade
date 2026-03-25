@@ -1,0 +1,97 @@
+Questão 1: Explique a principal diferença entre a alocação de memória de um Array 
+estático e a alocação de um Nó em uma Lista Dinâmica (Heap).
+
+Resposta: A Array estática exige mais processamento para realizar operações no meio da lista O(n). Já em uma Lista Dinâmica, basta apenas 1 operação O(1) para poder realizar modificações no meio da Lista.
+
+Questão 2: Por que a operação de inserir um elemento no início de um Array (tamanho 
+10.000) tem complexidade O(n), enquanto a mesma operação em uma Lista Dinâmica 
+Encadeada tem complexidade O(1)?
+
+Resposta: Pois para inserir em uma Array, é preciso realocar todos os outros indices até o final da mesma. Já na lista Dinâmica, basta apenas 1 unica operação para definir o inicio da Lista.
+
+Questão 3: Qual é o papel do Garbage Collector da JVM quando fazemos a operação 
+pop() em uma Pilha Dinâmica? Explique o que acontece com as referências dos ponteiros.
+
+Resposta: É uma função que apaga os Nós que não estão mais integrados ou sendo apontados na Lista Dinâmica. Sendo apagadas de fato
+
+Questão 4: Imagine que você está desenvolvendo o sistema de roteamento de um call 
+center, onde a regra é: quem ligou primeiro deve ser atendido primeiro. Qual estrutura de 
+dados (Lista, Pilha ou Fila) você escolheria? Justifique com os termos técnicos de entrada e 
+saída.
+
+Resposta: Fila. O primeiro elemento a entrar é o primeiro a sair.
+
+Questão 5: O recurso de "Desfazer" (Ctrl+Z) dos editores de texto armazena as últimas 
+ações do usuário. Se o desenvolvedor usasse uma Fila (Queue) em vez de uma Pilha 
+(Stack) para essa funcionalidade, o que aconteceria de errado ao pressionar Ctrl+Z? 
+
+Resposta: A função Ctrl+Z seria um "Refazer" ao inves de "Desfazer".
+
+Questão 6: Em uma Lista Linear Estática Encadeada (usando um Pool em um Array), o que 
+o valor -1 representa no campo proximo? E qual é o seu equivalente exato em uma Lista 
+Dinâmica instanciada no Heap?
+
+Resposta: Em uma Lista Linear Estática Encadeada, o valor -1 representa uma lista vazia. Já na Lista Dinâmica o -1 equivale ao ultimo nó da Lista.
+
+Questão 7: Arrays possuem uma característica chamada "Localidade de Referência", pois 
+ocupam blocos contíguos de memória. O que isso significa na prática para o processador 
+ao buscar o índice [500] em comparação a buscar o 500º nó de uma LinkedList? 
+
+Resposta: Na Arrays, o processador tem uma especie de "bussola" que aponta o indice exato que o usuário requisitou. Agora na LinkedList, o processador tem que percorrer 1 por 1 dos nós até encontrar o de numero 500.
+
+Questão 8: Se o sistema de uma emergência hospitalar usasse uma Fila (FIFO) rigorosa, 
+um paciente com um corte leve no dedo que chegou às 10h seria atendido antes de um 
+paciente com infarto que chegou às 10h10. Como a computação resolve esse problema 
+lógico utilizando variações de Estruturas de Dados?
+
+Resposta: Primeiro usar o peek() para visualizar a prioridade da fila, depois utilizar uma função reorganizarFila() para passar o idoso como o proximo a ser atendido, respeitando o conceito de FIFO.
+
+Questão 9: Considere um Array de inteiros onde cada elemento ocupa 4 bytes. Se o 
+endereço físico do índice [0] é 2000, qual será o endereço físico do índice [4]? Mostre o 
+cálculo.
+
+Resposta: Se o indice [0] é 2000, e para cada indice possui 4 bytes (32bits), o indice [4] vai ser 2128 = (32*4)
+
+Questão 10 (Fila): Dada uma Fila Dinâmica vazia, execute a sequência: 
+1. enqueue(5) 
+2. enqueue(10) 
+3. enqueue(15) 
+4. dequeue() 
+5. enqueue(20) 
+6. peek() 
+7. dequeue()
+
+Pergunta: Quais valores sobraram na fila e em qual ordem (do Início para o Fim)?
+Resposta: 15, 20
+
+Questão 11 (Pilha): Dada uma Pilha Dinâmica vazia, execute a sequência: 
+1. push(7) 
+2. push(14) 
+3. pop() 
+4. push(21) 
+5. push(28) 
+6. pop() 
+7. pop()  
+
+Pergunta: Qual valor sobrou na pilha e qual variável aponta para ele?
+Resposta: 7, inicio
+
+Questão 12 (Ponteiros): Uma Lista Dinâmica possui o seguinte estado no Heap: Head -> 
+[A] -> [B] -> [C] -> null. Se executarmos o comando Head.proximo = 
+Head.proximo.proximo;, como ficará o novo desenho da lista? O que acontecerá com o 
+nó [B]?
+Resposta: Head -> [A] -> [C] -> null. O nó B não vai ser apontado por nenhum nó, podendo ser coletado pelo Garbage Collector.
+
+Questão 13 (Lista Estática): Na nossa implementação de Lista Estática Encadeada, temos 
+a variável disponivel que aponta para o próximo espaço vazio no Array (Pool). Se a lista 
+está vazia e disponivel = 0, o que exatamente acontece com o valor de disponivel 
+após inserirmos o primeiro dado com sucesso?
+Resposta: O disponivel será igual a 1
+
+Questão 14 (Edge Case): Em uma Fila Dinâmica que gerencia os ponteiros inicio e fim, 
+o que DEVE acontecer obrigatoriamente no código com o ponteiro fim se a fila possuir 
+apenas um elemento e fizermos um dequeue()? 
+Resposta: Irá apontar para NULL
+
+
+
