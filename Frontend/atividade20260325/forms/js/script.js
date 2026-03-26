@@ -7,6 +7,7 @@ form.addEventListener("submit", function (event) {
     const senha = document.querySelector('#senha');
     const dataNascimento = document.querySelector('#dataNascimento').value;
     const idade = (new Date().getFullYear() - new Date(dataNascimento).getFullYear());
+    const urlPortifolio = document.querySelector('#url');
 
     console.log("Nome: ", nome.value, "\nEmail: ", email.value, "\n Idade: ", idade);
 
@@ -14,7 +15,9 @@ form.addEventListener("submit", function (event) {
         alert("Preencha o nome e email.");
     };
 
-    
+    if(urlPortifolio.value) {
+        
+    }
 
 
 });
