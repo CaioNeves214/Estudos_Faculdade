@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição em evento</title>
+</head>
+<body>
+    <form id="forminscricao">
+        <div>
+            Nome completo: <input type="text" id="nome_completo">
+            <small id="erroNome"></small><br>
+            Email: <input type="text" id="email">
+            <small id="erroEmail"></small><br>
+            Senha: <input type="password" id="senha">
+            <small id="erroSenha"></small><br>
+            Data de Nascimento: <input type="date" id="dataNascimento">
+            <small id="erroDataNascimento"></small><br>
+            Horario Preferido: <input type="datetime">
+            <small id="erroHorarioPreferido"></small><br>
+            URL Portifólio: <input type="url" id="url"> 
+            <small id="erroUrl"></small><br> 
+            Curso: <select name="curso" id="curso" style="height: 30px; width: 200px;">
+                <option value="engenharia">Engenharia</option>
+                <option value="medicina">Medicina</option>
+                <option value="si">SI - Sistema da Informação</option>
+            </select>
+            <small id="erroCurso"></small><br>
+            Turno:
+            <input type="radio" id="manha">Manhã
+            <input type="radio" id="noite">Noite
+
+            <br><br>Motivação:
+            <br><textarea id="motivacao" placeholder="Minimo de 20 caracteres"></textarea><br>
+
+            Aceite dos Termos: <input type="checkbox" id="aceiteTermos">
+        </div>
+        <div>
+            <input type="submit" value="Enviar">
+            <input type="reset" name="Apagar">
+        </div>  
+    </form>
+    <script src="js/script.js"></script>
+</body>
+</html>
