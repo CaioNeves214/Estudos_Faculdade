@@ -1,8 +1,8 @@
-public class No {
+public class NoFila {
     public int dado;
-    public No proximo;
+    public NoFila proximo;
 
-    public No(int dado){
+    public NoFila(int dado) {
         this.dado = dado;
         this.proximo = null;
     }

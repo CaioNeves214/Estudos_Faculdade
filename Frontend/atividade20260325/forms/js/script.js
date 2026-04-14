@@ -1,6 +1,8 @@
 const form = document.querySelector("#forminscricao");
 
+let daora = "daora";
 
+console.log(daora);
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
